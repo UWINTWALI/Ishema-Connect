@@ -1,0 +1,84 @@
+<div class="profile-container">
+  <!-- Profile Icon -->
+  <div class="profile-icon" id="profileIcon">
+     <div class="user_header">
+      <img
+      src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}/static/assets/images/default-profile.png{% endif %}"
+      alt="Profile Image"
+      class="profile-img"
+    />
+      <div class="user-name">
+          <strong>{{ user_profile.user.username }} </strong>
+      </div>
+     </div>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="profile-card border border-info" id="profileCard">
+    <button type="button" class="btn-close" id="close_btn" aria-label="Close"></button>
+    <div class="profile-details">
+      
+      <!-- User Header: Profile Picture and Name -->
+      <div class="user_header">
+        <img
+      src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}/static/assets/images/default-profile.png{% endif %}"
+      alt="Profile Image"
+      class="profile-img"
+    />
+        <h3>{{ user_profile.user.first_name }}</h3>
+      </div>
+
+      <!-- Volunteer Hours Overview Section -->
+      <div class="hours_overview">
+        <div>
+          <p><strong>Volunteer Hours</strong></p>
+          <p><span>x</span><small> Hours Volunteered</small></p>
+        </div>
+
+        <!-- Log Hours Button -->
+        <div class="view_btn">
+          <button class="btn btn-secondary">Log Hours</button>
+        </div>
+      </div>
+
+      <!-- Divider Line -->
+      <hr />
+
+      <!-- Upcoming Deeds List -->
+      <ul>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}"
+                ><i class="bi bi-envelope-fill"></i> Upcoming Deeds</a
+              >
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}"
+                ><i class="bi bi-envelope-fill"></i> Upcoming Deeds</a
+              >
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}"
+                ><i class="bi bi-envelope-fill"></i> Upcoming Deeds</a
+              >
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}"
+                ><i class="bi bi-envelope-fill"></i> Profile</a
+              >
+            </li>
+        <li class="nav-item"></li>
+              <a class="nav-link" href="{% url 'profile' %}"
+                ><i class="bi bi-envelope-fill"></i> Settings</a
+              >
+        </li>
+        <li class="nav-item">
+              <a class="nav-link logout-btn" href="{% url 'profile' %}"
+                ><i class="bi bi-envelope-fill"></i> Logout</a
+              >
+            </li>
+
+      </ul>
+      
+    </div>
+  </div>
+</div>

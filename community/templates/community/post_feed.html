@@ -1,0 +1,97 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<!------------ 
+              POST COMPOSER
+              ------------->
+
+<div class="post-card border border-info">
+  <div class="post-card-header">
+    <img
+      src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}/static/assets/images/default-profile.png{% endif %}"
+      alt="Profile Image"
+      class="profile-img"
+    />
+
+    <a href="{% url 'community:create_post' %}" class="post-input-link">
+      <input
+      type="text"
+      class="post-input"
+      placeholder="Share Your Experience, {{ user_profile.user.first_name }}?"
+    />
+    </a>
+
+  </div>
+  <div class="post-card-actions">
+    <button class="action-button">
+      <i class="bi bi-camera-video"></i> Live video
+    </button>
+    <a class="action-button" href="{% url 'community:create_post' %}">
+      <i class="bi bi-image"></i> Photo/video
+    </a>
+  </div>
+</div>
+
+
+<!------------ 
+              POST List
+              ------------->
+
+<div class="posts-list">
+  {% for post in posts %}
+  <div class="post-card border border-info">
+    <!-- Profile section -->
+    <div class="post-header">
+      <img
+        src="{% if post.user_profile.profile_picture %}{{ post.user_profile.profile_picture.url }}{% else %}/static/assets/images/default-profile.png{% endif %}"
+        alt="Profile Image"
+        class="profile-img"
+      />
+      <div class="post-user-info-modern">
+        <div class="user-name">
+          <strong
+            >{{ post.user_profile.user.first_name }} {{ post.user_profile.user.last_name }}</strong
+          >
+        </div>
+        <div class="user-details">
+          <span class="username">
+            <i class="bi bi-tag"></i> {{ post.user_profile.user.username }}
+          </span>
+          <span class="separator">•</span>
+          <span class="post-time">{{ post.created_at|timesince }} ago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post content -->
+    <div class="post-content">
+      <p>{{ post.text|linebreaks }}</p>
+      <br />
+      {% if post.tags %} {% for tag in post.tags.all %}
+      <a href="#">#{{ tag.name }}</a>
+      {% endfor %} {% endif %}
+    </div>
+
+    <!-- Media Section -->
+    {% if post.image %}
+    <div class="post-media">
+      <img src="{{ post.image.url }}" alt="Media" class="media-img" />
+    </div>
+    {% endif %}
+
+    <!-- Interaction buttons -->
+    <div class="post-actions">
+      <span><i class="bi bi-chat"></i> {{ post.comments.count }}</span>
+      <span><i class="bi bi-reply"></i> 2</span>
+      <span><i class="bi bi-heart"></i> {{ post.likes.count }}2k</span>
+      <span><i class="bi bi-share"></i> 209</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<!------------ 
+              POST List End__
+              ------------->
+
+{% endblock %}

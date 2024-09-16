@@ -1,15 +1,27 @@
 from django.db import models
 from accounts.models import UserProfile
 
-class Post(models.Model):
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    text = models.TextField()
-    image = models.ImageField(upload_to='posts/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+
+# models.py
+from django.db import models
+from django.contrib.auth.models import User
+
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"Post by {self.user_profile}"
+        return self.name
+
+class Post(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)  # Link to user profile
+    text = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='posts/', blank=True, null=True)  # Optional image field
+    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp when post was created
+
+    def __str__(self):
+        return f"{self.user_profile.user.username}'s Post"
+
 
 class Comment(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

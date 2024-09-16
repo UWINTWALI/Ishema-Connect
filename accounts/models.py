@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True, null=True)
     skills = models.CharField(max_length=255, blank=True, null=True)
     interests = models.CharField(max_length=255, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True, storage=default_storage)
+    profile_picture = models.ImageField(upload_to='profile_pictures/',default='profile_pictures/default-profile.png', blank=True, null=True, storage=default_storage)
     role = models.CharField(max_length=12, choices=USER_ROLE_CHOICES)
 
     def __str__(self):

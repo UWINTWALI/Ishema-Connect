@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="post-card border border-info">
+    <!-- Form to create a new post -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Profile section -->
+        <div class="post-card-header">
+            {{ form.text }}  <!-- Post text input -->
+        </div>
+
+        <!-- Media options -->
+        <div class="post-card-actions">
+            <label class="action-button">
+                <i class="bi bi-image"></i> Photo/video
+                {{ form.image }}  <!-- File input for image -->
+            </label>
+            <button type="submit" class="btn btn-info">
+                <i class="bi bi-send"></i> Post
+            </button>
+        </div>
+    </form>
+</div>
+
+<hr>
+{% endblock %}
