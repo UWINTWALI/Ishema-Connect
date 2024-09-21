@@ -1,7 +1,7 @@
-# IshemaRyacu-Connect
+# Ishema-Connect
 
 ## Project Description
-IshemaRyacu(=Our Pride) is a community service platform designed to connect volunteers with local opportunities. It aims to promote volunteerism, enhance community engagement, and support local organizations by providing tools for volunteer management, event coordination, and impact tracking.
+Ishema(Pride) is a community service platform designed to connect volunteers with local opportunities. It aims to promote volunteerism, enhance community engagement, and support local organizations by providing tools for volunteer management, event coordination, and impact tracking.
 
 ## Key Features
 - Volunteer Opportunity Listings: Search and filter volunteer opportunities.
