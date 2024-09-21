@@ -14,7 +14,7 @@ def create_post(request):
             post.user_profile = request.user.userprofile  # Attach the logged-in user's profile
             post.save()
             form.save_m2m()  # Save many-to-many fields (like tags if applicable)
-            return redirect('posts_list')  # Redirect to the post list after successful creation
+            return redirect('community:home')  # Redirect to the post list after successful creation
     else:
         form = PostForm()
 
@@ -26,13 +26,13 @@ def create_post(request):
 
 
 @login_required
-def posts_list(request):
+def home(request):
    user_profile = request.user.userprofile
    posts = Post.objects.all().order_by('-created_at')
    context ={
        'user_profile':user_profile,
        'posts':posts
    }
-   return render(request, 'community/post_feed.html', context)
+   return render(request, 'community/home.html', context)
 
 

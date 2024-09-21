@@ -1,0 +1,22 @@
+{% load static %}
+
+<img
+  src="{% if opportunity.opportunity_picture %}
+  {{ opportunity.opportunity_picture.url }}
+  {% else %}{% static 'assets/images/default_opportunity_image.jpg' %}{% endif %}"
+  alt="Opportunity Image"
+  class="profile-img"
+/>
+
+
+
+<h2>{{ opportunity.title }}</h2>
+<p>{{ opportunity.description }}</p>
+<p>Location: {{ opportunity.location }}</p>
+<p>Date: {{ opportunity.date }}</p>
+<p>Volunteer Limit: {{ opportunity.volunteer_limit }}</p>
+
+
+{% if request.user.is_authenticated and request.user.userprofile.role == 'volunteer' %}
+    <a href="{% url 'apply_for_opportunity' opportunity.id %}">Apply for this Opportunity</a>
+{% endif %}

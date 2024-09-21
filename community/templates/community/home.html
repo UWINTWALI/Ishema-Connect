@@ -1,0 +1,195 @@
+{% extends 'base.html' %} 
+
+
+<!-- Block top nav menu -->
+{% block nav_menu %}
+<div class="navbar navbar-light bg-white border-bottom">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">IshemaLogo</a>
+
+          <!-- Navigation-center -->
+          <div class="navbar-center navbar-light bg-light">
+            <div class="container">
+              <ul class="navbar-center-list">
+                <li class="navbar-center-item">
+                  <button class="navbar-center-link active" href="#home">
+                    Self
+                  </button>
+                </li>
+                <li class="navbar-center-item">
+                  <button class="navbar-center-link" href="#about">
+                    Community
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search "
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-primary" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+{% endblock %}
+
+<!-- block  side nav menu -->
+{% block left_navigation %}
+<!-- Custon navigation menu for home -->
+
+{% include 'accounts/profile_overview.html' %}
+
+<ul class="nav flex-column">
+  <!--  Home is default left nav menu -->
+  <li class="nav-item">
+    <a class="nav-link active" href="{% url 'community:home' %}"
+      ><i class="bi bi-house-door-fill"></i> Home</a
+    >
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-hash"></i> Explore</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"
+      ><i class="bi bi-bell-fill"></i> Notifications</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"
+      ><i class="bi bi-envelope-fill"></i> Messages</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"
+      ><i class="bi bi-envelope-fill"></i> Organizations</a
+    >
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"
+      ><i class="bi bi-envelope-fill"></i> My Events</a
+    >
+  </li>
+</ul>
+{% endblock %}
+
+<!-- Inhert feeds container -->
+{% block feeds %}
+
+<!------------ 
+              POST COMPOSER
+              ------------->
+
+<div class="post-card border border-info">
+  <div class="post-card-header">
+    <img
+      src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}/static/assets/images/default-profile.png{% endif %}"
+      alt="Profile Image"
+      class="profile-img"
+    />
+
+    <a href="{% url 'community:create_post' %}" class="post-input-link">
+      <input
+        type="text"
+        class="post-input"
+        placeholder="Share Your Experience, {{ user_profile.user.first_name }}?"
+      />
+    </a>
+  </div>
+  <div class="post-card-actions">
+    <button class="action-button">
+      <i class="bi bi-camera-video"></i> Live video
+    </button>
+    <a class="action-button" href="{% url 'community:create_post' %}">
+      <i class="bi bi-image"></i> Photo/video
+    </a>
+  </div>
+</div>
+
+<!------------ 
+              POST List
+              ------------->
+
+<div class="posts-list">
+  {% for post in posts %}
+  <div class="post-card border border-info">
+    <!-- Profile section -->
+    <div class="post-header">
+      <img
+        src="{% if post.user_profile.profile_picture %}{{ post.user_profile.profile_picture.url }}{% else %}/static/assets/images/default-profile.png{% endif %}"
+        alt="Profile Image"
+        class="profile-img"
+      />
+      <div class="post-user-info-modern">
+        <div class="user-name">
+          <strong
+            >{{ post.user_profile.user.first_name }} 
+            <!-- User names -->
+            {{post.user_profile.user.last_name }}</strong
+          >
+        </div>
+        <div class="user-details">
+          <span class="username">
+            <i class="bi bi-tag"></i> {{ post.user_profile.user.username }}
+          </span>
+          <span class="separator">•</span>
+          <span class="post-time">{{ post.created_at|timesince }} ago</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post content -->
+    <div class="post-content">
+      <p>{{ post.text|linebreaks }}</p>
+      <br />
+      {% if post.tags %} {% for tag in post.tags.all %}
+      <a href="#">#{{ tag.name }}</a>
+      {% endfor %} {% endif %}
+    </div>
+
+    <!-- Media Section -->
+    {% if post.image %}
+    <div class="post-media">
+      <img src="{{ post.image.url }}" alt="Media" class="media-img" />
+    </div>
+    {% endif %}
+
+    <!-- Interaction buttons -->
+    <div class="post-actions">
+      <span><i class="bi bi-chat"></i> {{ post.comments.count }}</span>
+      <span><i class="bi bi-reply"></i> 2</span>
+      <span><i class="bi bi-heart"></i> {{ post.likes.count }}2k</span>
+      <span><i class="bi bi-share"></i> 209</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<!------------ 
+              POST List End__
+              ------------->
+
+{% endblock %}
+
+<!-- Inhert right container -->
+{% block right_content %}
+<h5>What's Happening</h5>
+<div class="border border-info rounded p-3 mb-2">
+  <p><strong>Trending Opportunities</strong><br />123K post</p>
+</div>
+<div class="border border-info rounded p-3 mb-2">
+  <p><strong>Trending Events</strong><br />123K post</p>
+</div>
+<div class="border border-info rounded p-3 mb-2">
+  <p><strong>Suggested Organization To Follow</strong><br />45K post</p>
+</div>
+<div class="border border-info rounded p-3 mb-2">
+  <p><strong>Impact Leaderboard</strong><br />45K post</p>
+</div>
+{% endblock %}

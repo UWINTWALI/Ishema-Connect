@@ -125,23 +125,46 @@ nav {
   top: 70px;
   bottom: 0;
   left: 0;
-  width: 25%;
+  width: 20%;
   height: 100vh;
   overflow-y: auto;
+}
+.flex-content{
+  display: flex;
+  height: 100vh;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+margin: 0;
+padding: 0;
+
 }
 
 /* *
 * FEEDS
  */
-
 .feed {
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: scroll;
+  /* Keep it scrollable */
   scroll-behavior: smooth;
   border-left: 1px solid #e1e8ed;
   border-right: 1px solid #e1e8ed;
-  padding: 50px;
+  padding: 10px;
   background-color: var(--white-1);
+
+  /* Hide scrollbar for WebKit browsers */
+  -webkit-overflow-scrolling: touch;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+  /* Hide scrollbar in WebKit browsers */
+}
+
+/* For Firefox */
+.feed {
+  scrollbar-width: none;
+  /* Hide scrollbar in Firefox */
 }
 
 /* *
@@ -152,11 +175,11 @@ nav {
   top: 70px;
   bottom: 0;
   right: 0;
-  width: 25%;
+  width: 20%;
   height: 100vh;
   overflow-y: auto;
   border-left: 1px solid #ddd;
-  padding: 15px;
+  padding: 10px;
 }
 
 .nav-link {
@@ -220,8 +243,11 @@ nav {
 # MAKE ONLY FEEDS SCROLLABLE
 \* --------------------------------- */
 .col-md-6 {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.col-md-9 {
   margin-left: 25%;
-  margin-right: 25%;
 }
 
 /* --------------------------------- *\
@@ -500,4 +526,79 @@ nav {
 
 .logout-btn:hover {
   background-color: #ff3333;
+}
+
+
+/* -------------------*\
+* DONATION
+\* ------------------ */
+
+.small-modal-content {
+  max-width: 90vw;  /* Set the width of the content */
+  width: 100%;  /* Ensure the content can scale down */
+  max-height: 90vh;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Use flexbox to center the modal-dialog inside the full-screen modal */
+.modal-fullscreen .modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.donation-amount {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.donation-amount:hover {
+  background-color: #f0f0f0;
+}
+
+.donation-amount.selected {
+  background-color: #28a745;
+  color: white;
+}
+
+
+/* ------------------- *\
+* CUSTOM CSS FOR CARD
+\*---------------------*/
+.card {
+  height: 100%;
+  /* Ensures all cards have the same height */
+}
+
+.card-img-top {
+  height: 200px;
+  /* Adjust image height */
+  object-fit: cover;
+  /* Ensures the image fits well within the card */
+}
+
+.card-body {
+  flex-grow: 1;
+  /* Makes the card body stretch to fill the available space */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title,
+.card-text,
+.card-location {
+  /* Set any additional text styles or truncation */
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-top: auto;
+  /* Aligns the button at the bottom of the card */
 }

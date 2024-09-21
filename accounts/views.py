@@ -19,11 +19,11 @@ def user_info(request):
       if form.is_valid():
         form.save()
         messages.success(request, ("Profile Info Updated Successfully!!"))
-        return redirect('user_info')
+        return redirect('accounts:user_info')
       return render(request, 'accounts/user_info.html', {'form': form })
     else:
       messages.success(request, ("You must be logged in to view that page"))
-      return redirect('welcome')
+      return redirect('accounts:welcome')
     
 
 
@@ -54,9 +54,9 @@ def login(request):
 def logout(request):
     if request.method == 'POST':
         auth_logout(request)
-        return redirect('welcome')  # Redirect to home or another page after logout
+        return redirect('accounts:welcome')  # Redirect to home or another page after logout
     else:
-        return redirect('welcome')  # Redirect to home or another page if not POST request
+        return redirect('accounts:welcome')  # Redirect to home or another page if not POST request
 
 
 def welcome(request):
@@ -85,13 +85,13 @@ def register(request):
                 # Log in the user
                 auth_login(request, user)
                 messages.success(request, "Fill out the personal info section")
-                return redirect('user_info')
+                return redirect('accounts:user_info')
             else:
                 messages.error(request, "There was a problem logging in after registration.")
-                return redirect('register')
+                return redirect('accounts:register')
         else:
             messages.error(request, "Whoops! There was a problem registering the user. Try again.")
-            return redirect('register')
+            return redirect('accounts:register')
     else:
         return render(request, 'accounts/register.html', {'user_form': user_form})
 
@@ -109,7 +109,7 @@ def profile(request):
         profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         if profile_form.is_valid():
             profile_form.save()
-            return redirect('profile')
+            return redirect('accounts:profile')
     else:
         profile_form = UserProfileForm(instance=request.user.userprofile)
 

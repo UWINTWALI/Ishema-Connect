@@ -1,0 +1,225 @@
+{% extends 'base_min.html' %} {% block nav_menu %}
+<div class="navbar navbar-light bg-white border-bottom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">IshemaLogo</a>
+
+    <!-- Navigation-center -->
+    <div class="navbar-center navbar-light bg-light">
+      <div class="container">
+        <ul class="navbar-center-list">
+          <li class="navbar-center-item">
+            <button class="navbar-center-link active" href="#home">Self</button>
+          </li>
+          <li class="navbar-center-item">
+            <button class="navbar-center-link" href="#about">Community</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <form class="d-flex">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search "
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+<!-- block  side nav menu -->
+{% block left_navigation %}
+<!-- Custon navigation menu for home -->
+{% include 'accounts/profile_overview.html' %}
+
+<ul class="nav flex-column">
+  <!--  Home is default left nav menu -->
+  <li class="nav-item">
+    <a class="nav-link active" href="{% url 'community:home' %}"
+      ><i class="bi bi-house-door-fill"></i> Home</a
+    >
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="#"
+      ><i class="bi bi-house-door-fill"></i> Donate</a
+    >
+  </li>
+</ul>
+{% endblock %}
+
+<!-- block main content -->
+{% block feeds %}
+
+<div class="container">
+  <h1>Search Results for "{{ query }}"</h1>
+  <div class="row">
+    {% if organizations %}
+    <!-- If the search is found loop through them and display the organizations that match -->
+    {% for organization in organizations %}
+    <div class="col-md-5 mb-4 mt-5">
+      <div class="card border-info shadow-sm h-100">
+        <img
+          src="{{ organization.opportunity_picture.url }}"
+          class="card-img-top"
+          alt="{{ organization.name }}"
+        />
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ organization.name }}</h5>
+          <p class="card-text">{{ organization.description }}</p>
+          <p class="card-location">Location: {{ organization.location }}</p>
+
+          <!-- Donate Button to Open the Modal -->
+          <a
+            href="#"
+            class="btn btn-success mt-auto"
+            data-bs-toggle="modal"
+            data-bs-target="#donationModal{{ organization.id }}"
+            >Donate</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Donation Modal -->
+    <div
+      class="modal fade"
+      id="donationModal{{ organization.id }}"
+      tabindex="-1"
+      aria-labelledby="donationModalLabel{{ organization.id }}"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-fullscreen d-flex justify-content-center align-items-center"
+      >
+        <div class="modal-content small-modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="donationModalLabel{{ organization.id }}"
+            >
+              Make a Donation to {{ organization.name }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="donation-form{{ organization.id }}" method="POST">
+              {% csrf_token %}
+              <!-- Donation Amount Cards -->
+              <div class="row">
+                {% for amount in amounts %}
+                <!-- 
+                    document.getElementById('amount{{ organization.id }}'), 
+                    ensuring that you are interacting with the right card for that specific organization. -->
+                <div class="col-md-1">
+                  <div
+                    class="card donation-amount"
+                    data-amount="{{ amount }}"
+                    onclick="document.getElementById('custom-amount{{ organization.id }}').value = {{ amount }};"
+                  >
+                    ${{ amount }}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <!-- Custom Donation Amount -->
+              <div class="mt-3">
+                <label
+                  for="custom-amount{{ organization.id }}"
+                  class="form-label"
+                  >Or enter your own amount:</label
+                >
+                <input
+                  type="number"
+                  id="custom-amount{{ organization.id }}"
+                  class="form-control"
+                  name="amount"
+                  placeholder="Enter amount"
+                  required
+                />
+              </div>
+
+              <!-- Privacy Options -->
+
+              <div class="mt-3">
+                <h6>Privacy Options:</h6>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="privacy{{ organization.id }}"
+                    id="share-all{{ organization.id }}"
+                    value="share-all"
+                    checked
+                  />
+                  <label
+                    class="form-check-label"
+                    for="share-all{{ organization.id }}"
+                  >
+                    Share my name and the amount donated
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="privacy{{ organization.id }}"
+                    id="share-name-only{{ organization.id }}"
+                    value="share-name-only"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="share-name-only{{ organization.id }}"
+                  >
+                    Share my name but hide the amount donated
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="privacy{{ organization.id }}"
+                    id="anonymous{{ organization.id }}"
+                    value="anonymous"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="anonymous{{ organization.id }}"
+                  >
+                    Donate anonymously
+                  </label>
+                </div>
+              </div>
+
+              <!-- Proceed Button -->
+              <div class="mt-3">
+                <button type="submit" class="btn btn-success">
+                  Proceed to Payment
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- If no organization found -->
+    {% else %}
+    <p>No organizations found.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- END BLOCK FEEDS -->
+
+{% endblock %}

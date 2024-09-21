@@ -99,9 +99,9 @@ WSGI_APPLICATION = 'ishema.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ishema_db',
+        'NAME': '',
         'USER': 'root',
-        'PASSWORD': 'Lgwsp&24',
+        'PASSWORD': '',
         'HOST': 'localhost',  # database host
         'PORT': '3306',       # MySQL port
     }
@@ -144,12 +144,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = ['static']
+# STATICFILES_DIRS = ['static']
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 #Added
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 
 
