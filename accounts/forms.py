@@ -9,28 +9,72 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 
 
 
+# class UserProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = UserProfile
+#         fields = ['bio', 'skills', 'interests', 'profile_picture', 'role']
+#         widgets = {
+#             'bio': forms.Textarea(attrs={'placeholder': 'Tell us about yourself', 'rows': 3}),
+#             'skills': forms.TextInput(attrs={'placeholder': 'Your skills'}),
+#             'interests': forms.TextInput(attrs={'placeholder': 'Your interests'}),
+#             'profile_picture': forms.FileInput(),
+#             'role': forms.Select(choices=UserProfile.USER_ROLE_CHOICES),
+#         }
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['bio', 'skills', 'interests', 'profile_picture', 'role']
         widgets = {
-            'bio': forms.Textarea(attrs={'placeholder': 'Tell us about yourself', 'rows': 3}),
-            'skills': forms.TextInput(attrs={'placeholder': 'Your skills'}),
-            'interests': forms.TextInput(attrs={'placeholder': 'Your interests'}),
-            'profile_picture': forms.FileInput(),
-            'role': forms.Select(choices=UserProfile.USER_ROLE_CHOICES),
+            'bio': forms.Textarea(attrs={
+                'placeholder': 'Share a bit about yourself',
+                'rows': 4,
+                'class': 'form-control rounded',
+                'style': 'resize:none;'
+            }),
+            'skills': forms.TextInput(attrs={
+                'placeholder': 'Enter your skills',
+                'class': 'form-control rounded'
+            }),
+            'interests': forms.TextInput(attrs={
+                'placeholder': 'List your interests',
+                'class': 'form-control rounded'
+            }),
+            'profile_picture': forms.FileInput(attrs={
+                'class': 'form-control-file'
+            }),
+            'role': forms.Select(attrs={
+                'class': 'form-select rounded'
+            }),
+        }
+        labels = {
+            'bio': 'About You',
+            'skills': 'Your Skills',
+            'interests': 'Your Interests',
+            'profile_picture': 'Profile Picture',
+            'role': 'Role',
         }
 
 
 
-
 class LoginForm(AuthenticationForm):
+    """Customized login form with styles for username and password fields."""
+    
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'autofocus': True, 'placeholder': 'Username'})
+        widget=forms.TextInput(attrs={
+            'autofocus': True,
+            'placeholder': 'Username',
+            'class': 'form-control',
+            'style': 'border: 1px solid #007bff; padding: 10px; border-radius: 5px;',
+        })
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Password'})
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Password',
+            'class': 'form-control',
+            'style': 'border: 1px solid #007bff; padding: 10px; border-radius: 5px;',
+        })
     )
+
 
 
 

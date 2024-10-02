@@ -602,3 +602,8 @@ padding: 0;
   margin-top: auto;
   /* Aligns the button at the bottom of the card */
 }
+
+.opportunity_picture {
+  object-fit: cover;
+  /* Ensures the image covers the area without distortion */
+}

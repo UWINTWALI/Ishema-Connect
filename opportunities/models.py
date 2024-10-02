@@ -1,9 +1,12 @@
 from django.db import models
-from accounts.models import UserProfile
 from django.core.files.storage import default_storage
+from django.contrib.auth.models import User
+
+
+
 
 class Organization(models.Model):
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user_profile = models.ForeignKey('accounts.UserProfile', on_delete=models.CASCADE, related_name='organizations')
     name = models.CharField(max_length=255)
     description = models.TextField()
     contact_info = models.CharField(max_length=255)
@@ -12,6 +15,12 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def follower_count(self):
+        return 'dashboard.OrganizationFollow'.objects.filter(organization=self).count()
+
+
 
 class Opportunity(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
@@ -33,7 +42,7 @@ class Application(models.Model):
         ('APP', 'Approved'),
         ('REJ', 'Rejected'),
     ]
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user_profile = models.ForeignKey('accounts.UserProfile', on_delete=models.CASCADE, related_name='applications')
     opportunity = models.ForeignKey(Opportunity, on_delete=models.CASCADE)
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='PEN')
     applied_on = models.DateTimeField(auto_now_add=True)
@@ -49,8 +58,8 @@ class Donation(models.Model):
         ('anonymous', 'Anonymous'),
     ]
     
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='donations')
+    user = models.ForeignKey('accounts.UserProfile', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     privacy = models.CharField(max_length=30, choices=PRIVACY_CHOICES)
     donated_at = models.DateTimeField(auto_now_add=True)

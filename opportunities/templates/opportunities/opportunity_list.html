@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+<style>
+  .search-box {
+    width: 400px;
+  }
+</style>
 <!-- apply static css -->
 {% load static %}
 
@@ -61,18 +66,26 @@
 <div class="card text-left mb-5">
   <div class="card-header">
     <h2>Volunteer Opportunities</h2>
-    <!-- display the list of opportunities with a search bar. -->
-    <form method="GET">
+    <!-- Display the list of opportunities with a search bar. -->
+    <form method="GET" class="d-flex justify-content-between align-items-center">
       <input
         type="text"
         name="q"
-        placeholder="Search by title or location"
+        class="form-control me-2 search-box"
+        placeholder="Search by title, location or description"
         value="{{ query }}"
-      />
-      <button type="submit">Search</button>
+        aria-label="Search"/>
+      <button type="submit" class="btn btn-success">Search</button>  <!-- Bootstrap button -->
     </form>
   </div>
 </div>
+
+<style>
+  .search-box {
+    width: 700px;
+  }
+</style>
+
 
 <div class="card text-center">
   <div class="card-header">
@@ -107,7 +120,7 @@
 
             {% if opportunity.id %}
             <a
-              href="{% url 'opportunity_detail' opportunity.id %}"
+              href="{% url 'opportunity:opportunity_detail' opportunity.id %}"
               class="btn btn-primary"
               >View Opportunity</a
             >

@@ -11,6 +11,7 @@ from .models import UserProfile
 
 
 def user_info(request):
+    user_profile=request.user.userprofile
     if request.user.is_authenticated:
       #find profile whose user id is [user ID]
       current_user = UserProfile.objects.get(user__id = request.user.id)
@@ -20,7 +21,7 @@ def user_info(request):
         form.save()
         messages.success(request, ("Profile Info Updated Successfully!!"))
         return redirect('accounts:user_info')
-      return render(request, 'accounts/user_info.html', {'form': form })
+      return render(request, 'accounts/user_info.html', {'form': form, 'user_profile':user_profile})
     else:
       messages.success(request, ("You must be logged in to view that page"))
       return redirect('accounts:welcome')
@@ -101,6 +102,7 @@ def register(request):
 # Remove or comment out @login_required for development
 # @login_required
 def profile(request):
+    user_profile = request.user.userprofile
     # if not request.user.is_authenticated:
     #     # Handle anonymous users during development
     #     return redirect('profile')  # Redirect to home page or show a message
@@ -113,4 +115,4 @@ def profile(request):
     else:
         profile_form = UserProfileForm(instance=request.user.userprofile)
 
-    return render(request, 'accounts/profile.html', {'profile_form': profile_form})
+    return render(request, 'accounts/profile.html', {'profile_form': profile_form, 'user_profile':user_profile})

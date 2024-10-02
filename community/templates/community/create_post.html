@@ -2,40 +2,34 @@
 <!-- Block top nav menu -->
 {% block nav_menu %}
 <div class="navbar navbar-light bg-white border-bottom">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">IshemaLogo</a>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">IshemaLogo</a>
 
-          <!-- Navigation-center -->
-          <div class="navbar-center navbar-light bg-light">
-            <div class="container">
-              <ul class="navbar-center-list">
-                <li class="navbar-center-item">
-                  <button class="navbar-center-link active" href="#home">
-                    Self
-                  </button>
-                </li>
-                <li class="navbar-center-item">
-                  <button class="navbar-center-link" href="#about">
-                    Community
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search "
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-primary" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
+    <!-- Navigation-center -->
+    <div class="navbar-center navbar-light bg-light">
+      <div class="container">
+        <ul class="navbar-center-list">
+          <li class="navbar-center-item">
+            <button class="navbar-center-link active" href="#home">Self</button>
+          </li>
+          <li class="navbar-center-item">
+            <button class="navbar-center-link" href="#about">Community</button>
+          </li>
+        </ul>
       </div>
+    </div>
+
+    <form class="d-flex">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search "
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
 <!-- block  side nav menu -->
 {% block left_navigation %}
@@ -47,31 +41,27 @@
   <!--  Home is default left nav menu -->
   <li class="nav-item">
     <a class="nav-link active" href="{% url 'community:home' %}"
-      ><i class="bi bi-house-door-fill"></i> Home</a
+      ><i class="bi bi-house-fill"></i> Home</a
     >
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="#"><i class="bi bi-hash"></i> Explore</a>
+    <a class="nav-link" href="#"><i class="bi bi-compass-fill"></i> Explore</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-bell-fill"></i> Notifications</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"><i class="bi bi-envelope-fill"></i> Messages</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"
-      ><i class="bi bi-bell-fill"></i> Notifications</a
+      ><i class="bi bi-building-fill"></i> Organizations</a
     >
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"
-      ><i class="bi bi-envelope-fill"></i> Messages</a
-    >
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#"
-      ><i class="bi bi-envelope-fill"></i> Organizations</a
-    >
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#"
-      ><i class="bi bi-envelope-fill"></i> My Events</a
+      ><i class="bi bi-calendar-fill"></i> My Events</a
     >
   </li>
 </ul>
@@ -80,27 +70,28 @@
 <!-- block feeds -->
 {% block feeds %}
 <div class="post-card border border-info">
-    <!-- Form to create a new post -->
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        
-        <!-- Profile section -->
-        <div class="post-card-header">
-            {{ form.text }}  <!-- Post text input -->
-        </div>
+  <!-- Form to create a new post -->
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
-        <!-- Media options -->
-        <div class="post-card-actions">
-            <label class="action-button">
-                <i class="bi bi-image"></i> Photo/video
-                {{ form.image }}  <!-- File input for image -->
-            </label>
-            <button type="submit" class="btn btn-info">
-                <i class="bi bi-send"></i> Post
-            </button>
-        </div>
-    </form>
+    <!-- Profile section -->
+    <div class="post-card-header">
+      {{ form.text }}
+      <!-- Post text input -->
+    </div>
+
+    <!-- Media options -->
+    <div class="post-card-actions">
+      <label class="action-button">
+        <i class="bi bi-image"></i> Photo/video {{ form.image }}
+        <!-- File input for image -->
+      </label>
+      <button type="submit" class="btn btn-info">
+        <i class="bi bi-send"></i> Post
+      </button>
+    </div>
+  </form>
 </div>
 
-<hr>
+<hr />
 {% endblock %}

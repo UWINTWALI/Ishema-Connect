@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def create_post(request):
+    user_profile = request.user.userprofile
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -19,7 +20,8 @@ def create_post(request):
         form = PostForm()
 
     context = {
-        'form': form
+        'form': form,
+        'user_profile':user_profile
     }
     
     return render(request, 'community/create_post.html', context)
