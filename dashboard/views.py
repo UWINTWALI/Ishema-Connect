@@ -6,37 +6,71 @@ from .forms import OrganizationForm
 from django.contrib import messages
 from .models import OrganizationFollow
 
+# def manage_organization(request):
+#     user_profile=request.user.userprofile
+#     """List all suggested organizations along with organizations created by the user and followed organizations"""
+#     organizations = Organization.objects.all()
+#     """Get organizations created by the user"""
+#     user_created_organizations = Organization.objects.filter(user_profile=request.user.userprofile)
+#     """Get followed organizations by the current user using the property defined in UserProfile"""
+#     followed_organizations = request.user.userprofile.followed_organizations
+
+#     """View to handle organization creation for the logged-in user."""
+#     if request.method == 'POST':
+#         form = OrganizationForm(request.POST)
+#         if form.is_valid():
+#             organization = form.save(commit=False)
+#             organization.user_profile = request.user.userprofile  # Associate with the user's profile
+#             organization.save()
+#             messages.success(request, "Organization created successfully!")
+#             return redirect('dashboard:manage_organization')  # Redirect to the organization list page or another page
+#     else:
+#         form = OrganizationForm()
+
+#     """Prepare the context data"""
+#     context = {
+#         'organizations': list(organizations.values()),  """Convert queryset to list of dicts"""
+#         'followed_organizations': list(followed_organizations.values()),  """Convert followed organizations to list of dicts"""
+#         """Convert user-created organizations to list of dicts"""
+#         'user_created_organizations': list(user_created_organizations.values()),
+#         'form':form,
+#         'user_profile':user_profile
+#         }
+#     return render(request, 'dashboard/manage_organization.html', context)
+
+@login_required
 def manage_organization(request):
-    user_profile=request.user.userprofile
-    """List all suggested organizations along with organizations created by the user and followed organizations"""
+    user_profile = request.user.userprofile
+
+    # Get all organizations
     organizations = Organization.objects.all()
-    """Get organizations created by the user"""
-    user_created_organizations = Organization.objects.filter(user_profile=request.user.userprofile)
-    """Get followed organizations by the current user using the property defined in UserProfile"""
+
+    # Get organizations created by the user
+    user_created_organizations = Organization.objects.filter(user_profile=user_profile)
+
+    # Get followed organizations using the property
     followed_organizations = request.user.userprofile.followed_organizations
 
-    """View to handle organization creation for the logged-in user."""
     if request.method == 'POST':
         form = OrganizationForm(request.POST)
         if form.is_valid():
             organization = form.save(commit=False)
-            organization.user_profile = request.user.userprofile  # Associate with the user's profile
+            organization.user_profile = user_profile  # Associate with the user's profile
             organization.save()
             messages.success(request, "Organization created successfully!")
-            return redirect('dashboard:manage_organization')  # Redirect to the organization list page or another page
+            return redirect('dashboard:manage_organization')
     else:
         form = OrganizationForm()
 
-    """Prepare the context data"""
     context = {
-        'organizations': list(organizations.values()),  """Convert queryset to list of dicts"""
-        'followed_organizations': list(followed_organizations.values()),  """Convert followed organizations to list of dicts"""
-        """Convert user-created organizations to list of dicts"""
-        'user_created_organizations': list(user_created_organizations.values()),
-        'form':form,
-        'user_profile':user_profile
-        }
+        'organizations': organizations,  # Pass queryset directly
+        'followed_organizations': followed_organizations,  # Pass queryset directly
+        'user_created_organizations': user_created_organizations,  # Pass queryset directly
+        'form': form,
+        'user_profile': user_profile
+    }
     return render(request, 'dashboard/manage_organization.html', context)
+
 
 
 @login_required
@@ -70,21 +104,6 @@ def organization_list(request):
         'followed_organizations': followed_organizations,
     })
 
-
-
-# def create_organization(request):
-#     """View to handle organization creation for the logged-in user."""
-#     if request.method == 'POST':
-#         form = OrganizationForm(request.POST)
-#         if form.is_valid():
-#             organization = form.save(commit=False)
-#             organization.user_profile = request.user.userprofile  # Associate with the user's profile
-#             organization.save()
-#             messages.success(request, "Organization created successfully!")
-#             return redirect('dashboard:manage')  # Redirect to the organization list page or another page
-#     else:
-#         form = OrganizationForm()
-#     return render(request, 'dashboard/create_organization.html', {'form': form})
 
 
 

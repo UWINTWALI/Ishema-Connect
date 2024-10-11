@@ -47,7 +47,7 @@
 
   <li class="nav-item">
     <a class="nav-link" href="#"
-      ><i class="bi bi-house-door-fill"></i> Donate</a
+      ><i class="bi bi-cash-stack"></i> Donate</a
     >
   </li>
 </ul>
@@ -132,7 +132,7 @@
 
                               <!-- Follow/Unfollow button -->
                               <div id="follow-container-{{ organization.id }}">
-                                  {% if organization.id in followed_organizations %}
+                                  {% if organization in followed_organizations %}
                                       <button class="btn btn-danger follow-btn" data-organization-id="{{ organization.id }}" data-action="unfollow">Unfollow</button>
                                   {% else %}
                                       <button class="btn btn-success follow-btn" data-organization-id="{{ organization.id }}" data-action="follow">Follow</button>
@@ -153,43 +153,36 @@
       case 'follow':
         cardContent.innerHTML = `
           <h5 class="card-title">Organizations You Follow</h5>
-          <h1>Organization List</h1>
           <div class="row">
               {% for organization in followed_organizations %}
-                  <div class="col-md-4 mb-4">
-                      <div class="card h-100">
-                          <div class="card-body">
-                              <h5 class="card-title">{{ organization.name }}</h5>
-                              <p class="card-text">
-                                  <strong>Description:</strong> {{ organization.description }}<br>
-                                  <strong>Contact Info:</strong> {{ organization.contact_info }}<br>
-                                  <strong>Location:</strong> {{ organization.location }}
-                              </p>
-                              <p class="card-text">
-                                  <strong>Website:</strong>
-                                  {% if organization.website %}
-                                      <a href="{{ organization.website }}" target="_blank">{{ organization.name }}</a>
-                                  {% else %}
-                                      N/A
-                                  {% endif %}
-                              </p>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ organization.name }}</h5>
+                <p class="card-text">
+                    <strong>Description:</strong> {{ organization.description }}<br>
+                    <strong>Contact Info:</strong> {{ organization.contact_info }}<br>
+                    <strong>Location:</strong> {{ organization.location }}
+                </p>
+                <p class="card-text">
+                    <strong>Website:</strong>
+                    {% if organization.website %}
+                        <a href="{{ organization.website }}" target="_blank">{{ organization.name }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </p>
+                <!-- Follow/Unfollow button -->
+                <div id="follow-container-{{ organization.id }}">
+                    <button class="btn btn-danger follow-btn" data-organization-id="{{ organization.id }}" data-action="unfollow">Unfollow</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <p>No followed organizations found.</p>
+{% endfor %}
 
-                              <!-- Follow/Unfollow button -->
-                              <div id="follow-container-{{ organization.id }}">
-                                  {% if organization.id in followed_organizations %}
-                                      <button class="btn btn-danger follow-btn" data-organization-id="{{ organization.id }}" data-action="unfollow">Unfollow</button>
-                                  {% else %}
-                                      <button class="btn btn-success follow-btn" data-organization-id="{{ organization.id }}" data-action="follow">Follow</button>
-                                  {% endif %}
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              {% empty %}
-                  <div class="col-12">
-                      <p>No organizations found.</p>
-                  </div>
-              {% endfor %}
           </div>
         `;
         attachFollowButtonHandlers(); // Call function to attach event listeners
@@ -250,15 +243,6 @@
                                       N/A
                                   {% endif %}
                               </p>
-
-                              <!-- Follow/Unfollow button -->
-                              <div id="follow-container-{{ organization.id }}">
-                                  {% if organization.id in followed_organizations %}
-                                      <button class="btn btn-danger follow-btn" data-organization-id="{{ organization.id }}" data-action="unfollow">Unfollow</button>
-                                  {% else %}
-                                      <button class="btn btn-success follow-btn" data-organization-id="{{ organization.id }}" data-action="follow">Follow</button>
-                                  {% endif %}
-                              </div>
                           </div>
                       </div>
                   </div>

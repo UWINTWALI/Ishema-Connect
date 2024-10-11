@@ -99,9 +99,9 @@ WSGI_APPLICATION = 'ishema.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+        'NAME': 'DB name',
+        'USER': 'root',
+        'PASSWORD': 'Your password',
         'HOST': 'localhost',  # database host
         'PORT': '3306',       # MySQL port
     }

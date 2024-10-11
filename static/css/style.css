@@ -841,7 +841,9 @@ Testimonial Model
 /**
 *Footer container
  */
-
+footer{
+  background-color: green;
+}
 
 
 

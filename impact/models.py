@@ -10,3 +10,5 @@ class VolunteerHours(models.Model):
 
     def __str__(self):
         return f"{self.user_profile} - {self.hours} hours"
+    class Meta:
+        verbose_name_plural = "Volunteer Hours"

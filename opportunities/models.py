@@ -35,6 +35,8 @@ class Opportunity(models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        verbose_name_plural = "Opportunities"
 
 class Application(models.Model):
     STATUS_CHOICES = [

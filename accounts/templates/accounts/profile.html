@@ -46,9 +46,15 @@
     >
   </li>
 
+  <li class="nav-item"></li>
+    <a class="nav-link" href="{% url 'accounts:profile' %}"
+      ><i class="bi bi-person-circle"></i> Profile</a
+    >
+  </li>
+
   <li class="nav-item">
-    <a class="nav-link" href="#"
-      ><i class="bi bi-house-door-fill"></i> Donate</a
+    <a class="nav-link" href="{% url 'accounts:user_info' %}"
+      ><i class="bi bi-card-list"></i> Personal Information</a
     >
   </li>
 </ul>

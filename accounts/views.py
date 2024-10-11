@@ -1,13 +1,21 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
 from .forms import SignUpForm, UserProfileForm, LoginForm, UserInfoForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
-# from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from .models import UserProfile
+from opportunities.models import Opportunity
+
+def welcome(request):
+    opportunities = Opportunity.objects.order_by('-date')[:3]
+
+    context = {
+        'range': range(3),
+        'opportunities': opportunities
+    }
+    return render(request, 'accounts/welcome.html', context)
 
 
 def user_info(request):
@@ -55,16 +63,10 @@ def login(request):
 def logout(request):
     if request.method == 'POST':
         auth_logout(request)
-        return redirect('accounts:welcome')  # Redirect to home or another page after logout
+        return redirect('accounts:welcome')
     else:
-        return redirect('accounts:welcome')  # Redirect to home or another page if not POST request
+        return redirect('accounts:welcome')  # Redirect to another page if not POST request
 
-
-def welcome(request):
-    context = {
-        'range': range(3)
-    }
-    return render(request, 'accounts/welcome.html', context)
 
 
 def register(request):

@@ -70,7 +70,7 @@
     <!-- Hero Section -->
     <div
       class="jumbotron text-center"
-      style="background-image: url('{% static "assets/images/banner_image.jpg" %}'); color: white"
+      style="background-image: url('{% static "assets/images/volunteer.jpg" %}'); color: white"
     >
       <div class="container mt-5">
         <div class="row justify-content-center align-items-stretch mb-3">
@@ -240,23 +240,25 @@
     <!-- 
     Featured Opportunities 
     -->
+
+
     <section id="featured-opportunities" class="my-5">
       <div class="container">
         <h2 class="text-center mb-5">Featured Opportunities</h2>
         <div class="row d-flex align-items-stretch">
-          {% for i in range %}
+          {% for opportunity in opportunities %}
           <div class="col-md-4">
             <div class="card h-100">
               <img
                 class="card-img-top"
-                src="{% static 'assets/images/banner_image.jpg' %}"
-                alt="Opportunity 1"
+                style=" width: 350px; height: 300px; object-fit: cover; margin: 0 auto;"
+                src="{{ opportunity.opportunity_picture.url }}"
+                alt="Opportunity_ {{ opportunity.id }}"
               />
               <div class="card-body">
-                <h5 class="card-title">Beach Cleanup</h5>
+                <h5 class="card-title">{{ opportunity.title }}</h5>
                 <p class="card-text">
-                  Help clean the local beach this Saturday. Location: Miami
-                  Beach
+                  {{ opportunity.title }} <span style="color: blueviolet;">Location: </span>{{ opportunity.location }}
                 </p>
                 <div class="card-footer">
                   <a href="#" class="btn btn-success w-100"> Explore More </a>
@@ -369,45 +371,6 @@
         </div>
       </div>
     </div>
-
-    <!-- 
-    Features
-    -->
-    <section id="how-it-works" class="text-center my-5"></section>
-      <div class="container">
-        <h2 class="text-center mb-5">Features</h2>
-        <div class="row d-flex align-items-stretch g-4">
-          <!-- Added d-flex and align-items-stretch -->
-          <div class="col-md-4">
-            <div class="default-shadow p-3 h-100">
-              <!-- Added h-100 -->
-              <i class="fa fa-user-plus fa-3x mb-3"></i>
-              <h4>Register</h4>
-              <p>Create an account as a volunteer or organization.</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="default-shadow p-3 h-100">
-              <!-- Added h-100 -->
-              <i class="fa fa-search fa-3x mb-3"></i>
-              <h4>Explore Opportunities</h4>
-              <p>
-                Find volunteer opportunities that match your skills and
-                interests.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="default-shadow p-3 h-100">
-              <!-- Added h-100 -->
-              <i class="fa fa-handshake fa-3x mb-3"></i>
-              <h4>Start Volunteering</h4>
-              <p>Connect with organizations and make an impact.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- 
     Testimonila section 
