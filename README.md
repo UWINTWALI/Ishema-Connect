@@ -10,6 +10,15 @@ Ishema(Pride) is a community service platform designed to connect volunteers wit
 - Impact Tracking and Reporting: Measure and report the impact of volunteer activities.
 - Integration with Local Organizations and Government Agencies: API integration and collaboration tools.
 
+  ![Manage Organizations ](project_images/manage_organizations.png)
+  ![Featured Opportunities ](project_images/featured_opportunity.png)
+  ![Post Feeds](project_images/post_feeds.png)
+  ![Donate ](project_images/donate.png)
+  ![Create Organization ](project_images/create_org.png)
+
+ 
+
+
 ## Benefits
 - Enhances community engagement
 - Increases efficiency for organizations
