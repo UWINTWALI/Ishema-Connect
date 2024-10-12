@@ -99,9 +99,9 @@ WSGI_APPLICATION = 'ishema.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB name',
+        'NAME': 'db',
         'USER': 'root',
-        'PASSWORD': 'Your password',
+        'PASSWORD': 'pwd',
         'HOST': 'localhost',  # database host
         'PORT': '3306',       # MySQL port
     }
@@ -164,7 +164,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# settings.py
+
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/login/'  # Optional: Where to redirect users after login
+
+
+
+# Make sure these are set to the desired values
+SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Expire the session when the browser closes
+SESSION_SAVE_EVERY_REQUEST = True  # Save the session on every request
 

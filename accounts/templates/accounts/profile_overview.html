@@ -1,3 +1,4 @@
+{% if user.is_authenticated %}
 <div class="profile-container">
   <!-- Profile Icon -->
   <div class="profile-icon" id="profileIcon">
@@ -47,28 +48,23 @@
       <!-- Upcoming Deeds List -->
       <ul style="list-style: none;">
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'opportunity:opportunity_list' %}"
-                ><i class="bi bi-calendar-event-fill"></i> Upcoming Deeds</a
-              >
-            </li>
+              <a class="nav-link" href="{% url 'opportunity:opportunity_list' %}"><i class="bi bi-calendar-event-fill"></i> Upcoming Deeds</a>
+          </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'accounts:profile' %}"
-                ><i class="bi bi-person-circle"></i> Profile</a
-              >
-            </li>
-        <li class="nav-item">
-              <a class="nav-link" href=""
-                ><i class="bi bi-gear-fill"></i> Settings</a
-              >
-        </li>
-        <li class="nav-item">
-              <a class="nav-link logout-btn" href="{% url 'accounts:logout' %}"
-                ><i class="bi bi-box-arrow-right"></i> Logout</a
-              >
-            </li>
-
+              <a class="nav-link" href="{% url 'accounts:profile' %}"><i class="bi bi-person-circle"></i> Profile</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#"><i class="bi bi-gear-fill"></i> Settings</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link logout-btn" href="{% url 'accounts:logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a>
+          </li>
       </ul>
       
     </div>
   </div>
 </div>
+{% else %}
+<!-- Optional: You can add a message or a link to the login page here -->
+<p>Please <a href="{% url 'accounts:login' %}">log in</a> to view your profile.</p>
+{% endif %}

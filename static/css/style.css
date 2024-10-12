@@ -841,8 +841,18 @@ Testimonial Model
 /**
 *Footer container
  */
-footer{
-  background-color: green;
+.footer-container{
+  background: var(--bg-gradient-jet);
+  color: var(--light-gray);
+}
+.social-link,
+.list-footer li a{
+  text-decoration: none;
+  transition: var(--transition-2);
+}
+.social-link:hover,
+.list-footer li a:hover {
+  text-decoration: underline;
 }
 
 

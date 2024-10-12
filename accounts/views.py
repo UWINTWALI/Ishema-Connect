@@ -58,14 +58,14 @@ def login(request):
 
 
 
-
-
 def logout(request):
     if request.method == 'POST':
         auth_logout(request)
+        request.session.flush()  # This clears the session data
         return redirect('accounts:welcome')
     else:
-        return redirect('accounts:welcome')  # Redirect to another page if not POST request
+        return redirect('accounts:welcome')
+
 
 
 
